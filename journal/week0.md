@@ -11,3 +11,15 @@
 ## Obstacles & Solutions
 - **Issue:** AWS CLI threw `badly formed help string` due to Ubuntu system-packaged Python conflicts.
 - **Fix:** Purged `awscli` via APT and deployed the official standalone binary to `/usr/local/bin/aws`.
+
+## Architecture Design
+I designed the initial cloud architecture for the application,
+using Lucidchart to visualize the relationship between the major
+components.
+
+![Cloud Architecture](../_docs/architecture/aws-cruddur-architecture.png)
+
+## What I Learned
+
+The architecture exercise helped me understand how individual AWS
+services fit together rather than learning each service in isolation.
