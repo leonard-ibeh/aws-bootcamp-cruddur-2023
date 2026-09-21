@@ -17,7 +17,7 @@ I designed the initial cloud architecture for the application,
 using Lucidchart to visualize the relationship between the major
 components.
 
-![Cloud Architecture](../_docs/architecture/aws-cruddur-architecture.png)
+![Cloud Architecture](../_docs/assets/architecture/aws-cruddur-architecture.png)
 
 ## What I Learned
 
