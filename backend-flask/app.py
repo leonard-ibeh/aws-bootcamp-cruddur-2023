@@ -14,7 +14,35 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
+# OpenTelemetry imports
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.resources import Resource, ResourceAttributes
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
+
 app = Flask(__name__)
+# Initialize OpenTelemetry and Honeycomb exporter
+provider = TracerProvider(
+    resource=Resource.create({
+        ResourceAttributes.SERVICE_NAME: "Cruddur"
+    })
+)
+processor = BatchSpanProcessor(
+    OTLPSpanExporter(
+        endpoint="https://api.honeycomb.io",
+        headers={"x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY")}
+    )
+)
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
+
+# Initialize automatic instrumentation for Flask and Requests
+FlaskInstrumentor().instrument_app(app)
+RequestsInstrumentor().instrument()
 frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
