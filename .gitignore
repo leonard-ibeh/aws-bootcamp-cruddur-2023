@@ -1,2 +1,5 @@
 # local DynamoDB data
 docker/dynamodb/
+
+# Environment variables
+.env

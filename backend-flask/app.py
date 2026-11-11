@@ -32,7 +32,7 @@ provider = TracerProvider(
 )
 processor = BatchSpanProcessor(
     OTLPSpanExporter(
-        endpoint="https://api.honeycomb.io",
+        endpoint="https://api.honeycomb.io/v1/traces",
         headers={"x-honeycomb-team": os.getenv("HONEYCOMB_API_KEY")}
     )
 )

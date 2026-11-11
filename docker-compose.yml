@@ -1,9 +1,12 @@
-version: "3.8"
 services:
   backend-flask:
     environment:
       FRONTEND_URL: "http://localhost:3000"
       BACKEND_URL: "http://localhost:4567"
+      HONEYCOMB_API_KEY: "${HONEYCOMB_API_KEY}"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io/v1/traces"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      OTEL_SERVICE_NAME: "Cruddur"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -46,8 +49,7 @@ services:
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
       AWS_REGION: "eu-west-1"
-    command:
-      - "xray -o -b xray-daemon:2000"
+    command: ["-o", "-b", "0.0.0.0:2000"]
     ports:
       - 2000:2000/udp
 
