@@ -15,6 +15,7 @@ services:
   frontend-react-js:
     environment:
       REACT_APP_BACKEND_URL: "http://localhost:4567"
+      REACT_APP_HONEYCOMB_API_KEY: "{HONEYCOMB_API_KEY}"
     build: ./frontend-react-js
     ports:
       - "3000:3000"

@@ -10,6 +10,7 @@ class HomeActivities:
         with tracer.start_as_current_span("home-activities-mock-data"):
             span = trace.get_current_span()
             now = datetime.now(timezone.utc).astimezone()
+            span.set_attribute("user.id", "999")
             span.set_attribute("app.now", now.isoformat())
 
             results = [
